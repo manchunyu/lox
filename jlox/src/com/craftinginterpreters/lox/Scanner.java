@@ -30,7 +30,10 @@ class Scanner {
     }
 
     private void scanToken(){
-        
+        char c = advance();
+        switch (c) {
+            case 
+        }
     }
 
 
