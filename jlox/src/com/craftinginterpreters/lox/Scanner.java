@@ -11,7 +11,7 @@ class Scanner {
     private int start = 0;
     private int current = 0;
     private int line = 0;
-    
+
     Scanner(String source) {
         this.source = source;
     }
@@ -25,8 +25,12 @@ class Scanner {
         return tokens;
     }
 
-    private void scanToken(){
+    private boolean isAtEnd() {
+        return current >= source.length();
+    }
 
+    private void scanToken(){
+        
     }
 
 
