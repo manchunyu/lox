@@ -62,10 +62,41 @@ class Scanner {
                     addToken(SLASH);
                 }
                 break;
+
+            case ' ':
+            case '\r':
+            case '\t':
+                // Ignore whitespace
+                break;
+
+            case '\n':
+                line++;
+                break;
+
+            case '"': string(); break;
+
             default:
                 Lox.error(line, "Unexpected character.");
                 break;
         }
+    }
+
+    private void string() {
+        while (peek() != '"' && !isAtEnd()) {
+            if (peek() == '\n') line++;
+            advance();
+        }
+
+        if (isAtEnd()) {
+            Lox.error(line, "Unterminated string.");
+            return;
+        }
+
+        // The closing "
+        advance();
+
+        String value = source.substring(start + 1, current - 1);
+        addToken(STRING, value);
     }
 
     private boolean match(char expected) {
@@ -74,6 +105,11 @@ class Scanner {
 
         current++;
         return true;
+    }
+
+    private char peek() {
+        if (isAtEnd()) return '\0';
+        return source.charAt(current);
     }
 
     private char advance() {
