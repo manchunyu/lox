@@ -54,16 +54,26 @@ class Scanner {
     private void scanToken(){
         char c = advance();
         switch (c) {
-            case '(' : addToken(LEFT_PAREN); break;
-            case ')' : addToken(RIGHT_PAREN); break;
-            case '{' : addToken(LEFT_BRACE); break;
-            case '}' : addToken(RIGHT_BRACE); break;
-            case '.' : addToken(DOT); break;
-            case ',' : addToken(COMMA); break;
-            case '+' : addToken(PLUS); break;
-            case '-' : addToken(MINUS); break;
-            case ';' : addToken(SEMICOLON); break;
-            case '*' : addToken(STAR); break;
+            case '(':
+                addToken(LEFT_PAREN); break;
+            case ')':
+                addToken(RIGHT_PAREN); break;
+            case '{':
+                addToken(LEFT_BRACE); break;
+            case '}':
+                addToken(RIGHT_BRACE); break;
+            case '.':
+                addToken(DOT); break;
+            case ',':
+                addToken(COMMA); break;
+            case '+':
+                addToken(PLUS); break;
+            case '-':
+                addToken(MINUS); break;
+            case ';':
+                addToken(SEMICOLON); break;
+            case '*':
+                addToken(STAR); break;
 
             case '!':
                 addToken(match('=') ? BANG_EQUAL : BANG);
@@ -80,9 +90,10 @@ class Scanner {
             case '/':
                 if (match('/')) {
                     while (peek() != '\n' && !isAtEnd()) advance();
-                } else if (match('*')){ // Multiline comment support
-                    multilineComment();
-                } else {
+               } //else if (match('*')){ // Multiline comment support
+                // multilineComment();
+               // }
+                else {
                     addToken(SLASH);
                 }
                 break;
@@ -198,12 +209,14 @@ class Scanner {
     }
 
     // Multiline comment support
-    private void multilineComment() {
-        while (peek() != '*' && peekNext() != '/' && !isAtEnd()) {
-            if (peek() == '\n') line++;
-            advance();
-        }
-        advance();
-        advance();
-    }
+    /*
+      private void multilineComment() {
+          while (!(peek() == '*' && peekNext() == '/') && !isAtEnd()) {
+              if (peek() == '\n') line++;
+              advance();
+          }
+          advance();
+          advance();
+      }
+     */
 }
